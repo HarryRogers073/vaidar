@@ -9,6 +9,13 @@
 
 ---
 
+### 📜 Academic Integrity & Attribution Disclosure
+- **Author & Project Ownership:** Developed and authored by **Harry Rogers** as an individual BEng dissertation project (`XE636`) under academic supervision at the University of Brighton.
+- **Third-Party Libraries & Dependencies:** This project makes use of standard open-source libraries including `pyserial` (serial transport), `customtkinter` (GUI desktop interface), `matplotlib` (waveform plotting), and official API SDKs from Google (`google-generativeai`), Anthropic, and OpenAI for LLM stimulus synthesis.
+- **Hardware & Synthesis Tools:** RTL synthesis and implementation performed with AMD Xilinx Vivado ML Edition targeting the Digilent Nexys A7-100T (Artix-7 XC7A100T). All custom RTL modules (16-bit ALU, UART controller, register file) are authored by Harry Rogers.
+
+---
+
 ## 🎯 Key Achievements & Metrics
 
 - **91% Final Distinction Grade (A+)** in XE636 Individual Project (BEng Electronic & Computer Engineering).
