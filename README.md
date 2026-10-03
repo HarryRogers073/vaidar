@@ -172,10 +172,10 @@ vaidar-hil-framework/
 - **Author:** Harry Rogers
 - **Degree:** BEng (Hons) Electronic & Computer Engineering (First-Class Honours, 80% Overall)
 - **Institution:** University of Brighton
-- **Module:** XE636 - Individual Project (Grade: 91% / A+)
+- **Curriculum:** Capstone BEng Individual Dissertation Project (Grade: 91% / A+)
 - **Distinctions:** Recipient of the **IET Prize 2026**
 - **Website:** [www.harry-rogers.com](https://www.harry-rogers.com)
-- **LinkedIn:** [linkedin.com/in/harryrogers](https://www.linkedin.com/in/harryrogers)
+- **LinkedIn:** [linkedin.com/in/harryrogers073](https://www.linkedin.com/in/harryrogers073/)
 
 ---
 
