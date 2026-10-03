@@ -1,0 +1,11 @@
+{
+    "default_port": "COM10",
+    "baud_rate": 921600,
+    "visual_delay": 10.0,
+    "theme": "Light",
+    "device_profile": "16-bit ALU",
+    "comm_driver": "UART (Serial)",
+    "ai_provider": "Google Gemini",
+    "gemini_model": "gemini-1.5-flash",
+    "progress_threshold": 5000
+}

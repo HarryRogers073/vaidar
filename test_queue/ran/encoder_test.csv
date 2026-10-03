@@ -1,0 +1,3 @@
+X,Y,Z,Expected Out1,Expected Out2,Expected Out3,Expected Out4,Expected Out5
+10,20,30,30,50,20,0,30
+50,60,70,110,130,116,48,126
