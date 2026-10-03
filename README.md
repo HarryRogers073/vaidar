@@ -10,7 +10,7 @@
 ---
 
 ### 📜 Academic Integrity & Attribution Disclosure
-- **Author & Project Ownership:** Developed and authored by **Harry Rogers** as an individual BEng dissertation project (`XE636`) under academic supervision at the University of Brighton.
+- **Author & Project Ownership:** Developed and authored by **Harry Rogers** as an individual BEng dissertation project under academic supervision at the University of Brighton.
 - **Third-Party Libraries & Dependencies:** This project makes use of standard open-source libraries including `pyserial` (serial transport), `customtkinter` (GUI desktop interface), `matplotlib` (waveform plotting), and official API SDKs from Google (`google-generativeai`), Anthropic, and OpenAI for LLM stimulus synthesis.
 - **Hardware & Synthesis Tools:** RTL synthesis and implementation performed with AMD Xilinx Vivado ML Edition targeting the Digilent Nexys A7-100T (Artix-7 XC7A100T). All custom RTL modules (16-bit ALU, UART controller, register file) are authored by Harry Rogers.
 
@@ -18,7 +18,7 @@
 
 ## 🎯 Key Achievements & Metrics
 
-- **91% Final Distinction Grade (A+)** in XE636 Individual Project (BEng Electronic & Computer Engineering).
+- **91% Final Distinction Grade (A+)** in Capstone Individual Dissertation Project (BEng Electronic & Computer Engineering).
 - **Recipient of the IET Prize 2026** awarded by the Institution of Engineering and Technology for outstanding academic distinction.
 - **~1,000 Tests/Second Throughput:** Up to **44,000x acceleration** compared to manual physical bench validation with function generators and logic probes.
 - **Dynamic AI Test Generation & Anomaly Triage:** Integrated Gemini, Claude, and OpenAI provider interfaces for autonomous directed vector synthesis and automatic failure root-cause clustering.
