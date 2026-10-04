@@ -1,15 +1,12 @@
 """
-********************************************************************************
-* MODULE:       connection_panel.py
-* AUTHOR:       Harry Rogers
-* DATE:         2026
-*
-* DESCRIPTION:
-* Self-contained sidebar widget for serial connection management.
-* Provides port entry, baud rate selection, a colour-coded status
-* indicator, and a connect/disconnect toggle.
-********************************************************************************
+================================================================================
+File:         connection_panel.py
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  Hardware connection, serial port selector, and baud rate control panel
+================================================================================
 """
+
 import customtkinter as ctk
 
 

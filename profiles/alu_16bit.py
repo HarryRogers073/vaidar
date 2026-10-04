@@ -1,23 +1,10 @@
 """
-ALU profile for the 16-bit custom ALU device.
-
-This module provides a concrete DeviceProfile implementation that converts
-high-level command dictionaries (for example parsed from CSV rows) into the
-binary command packet expected by the FPGA/ALU hardware, and conversely parses
-the binary response packet into a Python dictionary.
-
-Packet formats used by this profile (little-endian bytes within fields):
-- Command packet (5 bytes): [ opcode, A_hi, A_lo, B_hi, B_lo ]
-  - opcode: 1 byte operation code
-  - A_hi/A_lo: 16-bit operand A split into high and low bytes
-  - B_hi/B_lo: 16-bit operand B split into high and low bytes
-
-- Response packet (>=3 bytes): [ flags, RESULT_hi, RESULT_lo, ... ]
-  - flags: 1 byte containing status flags (N, Z, C, V) packed into low bits
-  - RESULT_hi/RESULT_lo: 16-bit result split into two bytes
-
-Note: The exact bit positions for flags are taken from the hardware spec used
-by this project: N is bit 3, Z is bit 2, C is bit 1 and V is bit 0.
+================================================================================
+File:         alu_16bit.py
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  Device profile for 16-bit ALU hardware-in-the-loop verification
+================================================================================
 """
 
 from core.interfaces import DeviceProfile

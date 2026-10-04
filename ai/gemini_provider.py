@@ -1,16 +1,12 @@
 """
-********************************************************************************
-* MODULE:       gemini_provider.py
-* AUTHOR:       Harry Rogers
-* DATE:         2026
-*
-* DESCRIPTION:
-* Concrete implementation of the AIProvider interface using Google's Gemini
-* API. This is a generic LLM wrapper with zero hardcoded domain knowledge.
-* All context about the device under test comes from the system_prompt
-* argument, which is supplied by the DeviceProfile.
-********************************************************************************
+================================================================================
+File:         gemini_provider.py
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  Google Gemini API provider implementation for test vector generation
+================================================================================
 """
+
 import io
 import csv
 from core.interfaces import AIProvider

@@ -1,15 +1,12 @@
 """
-********************************************************************************
-* MODULE:       generate_tests.py
-* AUTHOR:       Harry Rogers
-* DATE:         2026
-*
-* DESCRIPTION: 
-* A utility module that acts as the software "Golden Model". It mathematically 
-* simulates the expected behaviours of the 16-bit FPGA ALU to generate 
-* comprehensive CSV test vectors, complete with accurately predicted NZCV flags.
-********************************************************************************
+================================================================================
+File:         generate_tests.py
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  Algorithmic test vector generation and arithmetic flag golden model
+================================================================================
 """
+
 import csv
 import random
 import math

@@ -1,15 +1,12 @@
 """
-********************************************************************************
-* MODULE:       uart_driver.py
-* AUTHOR:       Harry Rogers
-* DATE:         2026
-*
-* DESCRIPTION: 
-* Concrete implementation of the CommDriver interface for Serial/UART 
-* communication. It manages the physical connection to the FPGA board via a 
-* USB-to-Serial bridge.
-********************************************************************************
+================================================================================
+File:         uart_driver.py
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  High-speed buffered serial UART communication driver (up to 921,600 baud)
+================================================================================
 """
+
 import serial
 import time
 from core.interfaces import CommDriver

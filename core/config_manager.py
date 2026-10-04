@@ -1,15 +1,12 @@
 """
-********************************************************************************
-* MODULE:       config_manager.py
-* AUTHOR:       Harry Rogers
-* DATE:         2026
-*
-* DESCRIPTION:
-* Centralised configuration management. Provides a single source of truth
-* for settings. Handles loading/saving non-sensitive settings in config.json,
-* and loading/saving sensitive API credentials securely in a local .env file.
-********************************************************************************
+================================================================================
+File:         config_manager.py
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  Persistent JSON configuration manager for application and hardware settings
+================================================================================
 """
+
 import os
 import json
 

@@ -1,15 +1,12 @@
 """
-********************************************************************************
-* MODULE:       settings_dialog.py
-* AUTHOR:       Harry Rogers
-* DATE:         2026
-*
-* DESCRIPTION:
-* Modal dialog popup for configuring application settings. Features a General
-* settings tab (with secure API key inputs) and an Advanced tab (to swap
-* hardware drivers, device profiles, AI backends, and model parameters).
-********************************************************************************
+================================================================================
+File:         settings_dialog.py
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  Application settings configuration dialog for timeouts, baud rates, and API keys
+================================================================================
 """
+
 import customtkinter as ctk
 
 

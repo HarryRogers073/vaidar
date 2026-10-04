@@ -1,14 +1,12 @@
 """
-********************************************************************************
-* MODULE:       info_dialog.py
-* AUTHOR:       Harry Rogers
-* DATE:         2026
-*
-* DESCRIPTION:
-* Modal dialog displaying information about the framework. Retrieves identity
-* and description metadata dynamically from the active DeviceProfile.
-********************************************************************************
+================================================================================
+File:         info_dialog.py
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  Application architecture and provenance information modal dialog
+================================================================================
 """
+
 import customtkinter as ctk
 
 

@@ -1,16 +1,12 @@
 """
-********************************************************************************
-* MODULE:       app_shell.py
-* AUTHOR:       Harry Rogers
-* DATE:         2026
-*
-* DESCRIPTION:
-* Main UI orchestration shell. Reorganizes the application into a tabbed layout
-* featuring a Dashboard (with connection, generation controls, and a live logic
-* analyser canvas graph), Execution Logs, Run Histories, dynamic Device Profile
-* Specifications, and AI Diagnostics.
-********************************************************************************
+================================================================================
+File:         app_shell.py
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  Main CustomTkinter application window shell and layout coordinator
+================================================================================
 """
+
 import os
 import queue
 import shutil

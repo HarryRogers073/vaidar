@@ -1,16 +1,12 @@
 """
-********************************************************************************
-* MODULE:       profile_rules_tab.py
-* AUTHOR:       Harry Rogers
-* DATE:         2026
-*
-* DESCRIPTION:
-* Display panel that parses and renders the metadata, supported commands,
-* binary opcode maps, and AI prompts of the active DeviceProfile.
-* Refreshes dynamically when the profile changes at runtime. Allows the user
-* to edit and save custom AI generation and analysis prompts.
-********************************************************************************
+================================================================================
+File:         profile_rules_tab.py
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  Device profile schema inspection and assertion rules display panel
+================================================================================
 """
+
 import tkinter as tk
 import customtkinter as ctk
 

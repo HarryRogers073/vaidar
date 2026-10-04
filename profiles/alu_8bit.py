@@ -1,3 +1,12 @@
+"""
+================================================================================
+File:         alu_8bit.py
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  Device profile for 8-bit ALU hardware-in-the-loop verification
+================================================================================
+"""
+
 from core.interfaces import DeviceProfile
 
 class ALU8BitProfile(DeviceProfile):

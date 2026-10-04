@@ -1,9 +1,10 @@
 /*
-********************************************************************************
-* MODULE:       top_16bit_alu
-* AUTHOR:       Harry Rogers
-* DATE:         2026
-********************************************************************************
+================================================================================
+File:         top_16bit_alu.v
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  Top-level synthesizable Verilog module integrating ALU, control FSM, and UART
+================================================================================
 */
 
 module top_16bit_alu #(

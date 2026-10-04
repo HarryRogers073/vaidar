@@ -1,16 +1,12 @@
 """
-********************************************************************************
-* MODULE:       interfaces.py
-* AUTHOR:       Harry Rogers
-* DATE:         2026
-*
-* DESCRIPTION: 
-* Abstract Base Classes (ABCs) that form the foundation of the modular
-* framework. CommDriver decouples communication, DeviceProfile decouples
-* hardware logic and carries device metadata, and AIProvider decouples
-* the AI backend.
-********************************************************************************
+================================================================================
+File:         interfaces.py
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  Abstract base classes for CommDriver, DeviceProfile, and AIProvider
+================================================================================
 """
+
 from abc import ABC, abstractmethod
 
 

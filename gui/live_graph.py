@@ -1,16 +1,12 @@
 """
-********************************************************************************
-* MODULE:       live_graph.py
-* AUTHOR:       Harry Rogers
-* DATE:         2026
-*
-* DESCRIPTION:
-* Real-time graphical widgets for the HIL Verification Suite. Adapts dynamically
-* to Light and Dark theme selections. Exports:
-* - LiveWaveformGraph: A scrolling 3-channel logic analyser/waveform viewer.
-* - LiveThroughputGraph: A scrolling tests per second speed graph.
-********************************************************************************
+================================================================================
+File:         live_graph.py
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  Real-time throughput and signal waveform plotting widgets using Matplotlib
+================================================================================
 """
+
 import tkinter as tk
 import customtkinter as ctk
 

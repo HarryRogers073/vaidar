@@ -1,14 +1,12 @@
 """
-********************************************************************************
-* MODULE:       ai_console.py
-* AUTHOR:       Harry Rogers
-* DATE:         2026
-*
-* DESCRIPTION:
-* Display pane for LLM prompt interactions and analysis results. Includes
-* the capability to run async test log analysis using Gemini.
-********************************************************************************
+================================================================================
+File:         ai_console.py
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  Interactive LLM prompt and test generation console UI panel
+================================================================================
 """
+
 import os
 import glob
 import threading

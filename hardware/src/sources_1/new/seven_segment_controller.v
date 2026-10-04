@@ -1,24 +1,10 @@
 /*
-********************************************************************************
-* MODULE:       seven_segment_controller
-* AUTHOR:       Harry Rogers
-* DATE:         2026
-*
-* DESCRIPTION: 
-* This module manages the visual output for the FPGA platform. It accepts a 
-* 16-bit binary value, separates it into four 4-bit nibbles, and multiplexes 
-* these nibbles across a 4-digit 7-segment display. It relies on a slower 
-* divided clock to switch between digits fast enough to avoid visible flicker.
-*
-* INPUTS:
-* clk           : System clock from the main module.
-* rst           : Asynchronous hardware reset.
-* display_value : The 16-bit value (usually the ALU result) to be displayed.
-*
-* OUTPUTS:
-* cathodes      : 8-bit bus driving the individual A-G segments and decimal point.
-* anodes        : 4-bit bus controlling which digit is currently active.
-********************************************************************************
+================================================================================
+File:         seven_segment_controller.v
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  Multiplexed 7-segment display driver for live FPGA bus inspection
+================================================================================
 */
 
 module seven_segment_controller (

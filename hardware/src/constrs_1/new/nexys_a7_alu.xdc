@@ -1,10 +1,10 @@
-## ----------------------------------------------------------------------
-## XDC CONSTRAINTS for top_16bit_alu
-## Platform: Nexys A7 (Artix-7 FPGA)
-## Electrical Standard: LVCMOS 3.3V (Low-Voltage CMOS)
-## ----------------------------------------------------------------------
+## =============================================================================
+## File:         nexys_a7_alu.xdc
+## Written by:   Harry Rogers
+## Date:         May 2026
+## Description:  Timing constraints and pin allocations for Digilent Nexys A7 Artix-7 FPGA
+## =============================================================================
 
-## 1. System Reference Clock
 set_property -dict { PACKAGE_PIN E3    IOSTANDARD LVCMOS33 } [get_ports { clk }]; 
 create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports { clk }];
 

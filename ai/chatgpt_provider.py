@@ -1,14 +1,12 @@
 """
-********************************************************************************
-* MODULE:       chatgpt_provider.py
-* AUTHOR:       Harry Rogers
-* DATE:         2026
-*
-* DESCRIPTION:
-* Concrete implementation of the AIProvider interface using OpenAI's ChatGPT
-* API. Decoupled from hardware-specific domain knowledge.
-********************************************************************************
+================================================================================
+File:         chatgpt_provider.py
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  OpenAI ChatGPT API provider implementation for test vector generation
+================================================================================
 """
+
 import os
 from core.interfaces import AIProvider
 

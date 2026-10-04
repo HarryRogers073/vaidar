@@ -1,19 +1,12 @@
 """
-********************************************************************************
-* MODULE:       engine.py
-* AUTHOR:       Harry Rogers
-* DATE:         2026
-*
-* DESCRIPTION: 
-* The orchestration layer of the framework. It handles the watchdog file 
-* monitoring, reads incoming CSV test batches, streams data to the FPGA via 
-* the injected communication driver, compares the physical results against
-* the golden model, and generates heavily formatted diagnostic reports.
-*
-* MODULAR DESIGN: The driver and profile are injected via the constructor,
-* removing all hardcoded dependencies on specific hardware or protocols.
-********************************************************************************
+================================================================================
+File:         engine.py
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  High-throughput verification test engine and hardware-in-the-loop coordinator
+================================================================================
 """
+
 import os
 import time
 import csv

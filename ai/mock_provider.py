@@ -1,14 +1,12 @@
 """
-********************************************************************************
-* MODULE:       mock_provider.py
-* AUTHOR:       Harry Rogers
-* DATE:         2026
-*
-* DESCRIPTION:
-* A lightweight offline stub implementing the AIProvider interface.
-* Allows the application to run without an API key configured.
-********************************************************************************
+================================================================================
+File:         mock_provider.py
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  Deterministic offline mock LLM provider for CI and testing
+================================================================================
 """
+
 from core.interfaces import AIProvider
 
 

@@ -1,14 +1,12 @@
 """
-********************************************************************************
-* MODULE:       generation_panel.py
-* AUTHOR:       Harry Rogers
-* DATE:         2026
-*
-* DESCRIPTION:
-* Sidebar widget for test file generation. Supports both random (Python-based)
-* generation and AI-assisted generation via the injected AIProvider.
-********************************************************************************
+================================================================================
+File:         generation_panel.py
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  Test vector batch configuration and queue management panel
+================================================================================
 """
+
 import os
 import io
 import csv

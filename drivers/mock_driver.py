@@ -1,15 +1,12 @@
 """
-********************************************************************************
-* MODULE:       mock_driver.py
-* AUTHOR:       Harry Rogers
-* DATE:         2026
-*
-* DESCRIPTION:
-* Closed-loop hardware simulation driver implementing the CommDriver interface.
-* Decodes command packets, simulates execution in software (using the golden model),
-* packs the result with proper NZCV flags, and streams it back to the test engine.
-********************************************************************************
+================================================================================
+File:         mock_driver.py
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  Loopback software simulation driver emulating FPGA response packets
+================================================================================
 """
+
 import time
 from core.interfaces import CommDriver
 from core.generate_tests import calculate_flags

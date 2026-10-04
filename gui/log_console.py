@@ -1,14 +1,12 @@
 """
-********************************************************************************
-* MODULE:       log_console.py
-* AUTHOR:       Harry Rogers
-* DATE:         2026
-*
-* DESCRIPTION:
-* Real-time console widget for displaying system logs. Features auto-scrolling
-* and colour-coded message lines based on logging severity (INFO, WARN, ERROR).
-********************************************************************************
+================================================================================
+File:         log_console.py
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  Timestamped streaming diagnostic log viewer with auto-scroll and filtering
+================================================================================
 """
+
 import tkinter as tk
 import customtkinter as ctk
 

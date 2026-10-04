@@ -1,15 +1,12 @@
 """
-********************************************************************************
-* MODULE:       app.py
-* AUTHOR:       Harry Rogers
-* DATE:         2026
-*
-* DESCRIPTION:
-* Application entry point and Composition Root. Performs configuration loading,
-* instantiates the communication driver, active device profile, test engine,
-* and AI provider, then launches the graphical user interface.
-********************************************************************************
+================================================================================
+File:         app.py
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  Application entry point and composition root for VAIDAR HIL framework
+================================================================================
 """
+
 import os
 import sys
 

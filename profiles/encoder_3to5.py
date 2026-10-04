@@ -1,4 +1,13 @@
 """
+================================================================================
+File:         encoder_3to5.py
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  Device profile for 3-to-5 priority encoder verification
+================================================================================
+"""
+
+"""
 Profile for a custom combinatorial 3-input, 5-output encoder.
 Demonstrates framework modularity (arbitrary inputs and outputs).
 """

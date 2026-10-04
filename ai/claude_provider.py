@@ -1,14 +1,12 @@
 """
-********************************************************************************
-* MODULE:       claude_provider.py
-* AUTHOR:       Harry Rogers
-* DATE:         2026
-*
-* DESCRIPTION:
-* Concrete implementation of the AIProvider interface using Anthropic's Claude
-* API. Decoupled from hardware-specific domain knowledge.
-********************************************************************************
+================================================================================
+File:         claude_provider.py
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  Anthropic Claude API provider implementation for test vector generation
+================================================================================
 """
+
 import os
 from core.interfaces import AIProvider
 

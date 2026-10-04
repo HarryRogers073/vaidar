@@ -1,15 +1,12 @@
 """
-********************************************************************************
-* MODULE:       status_panel.py
-* AUTHOR:       Harry Rogers
-* DATE:         2026
-*
-* DESCRIPTION:
-* A compact header widget that displays the system state, progress bar,
-* and current clock. Updated by calling the `update()` method from the
-* main shell or from other panels via callbacks.
-********************************************************************************
+================================================================================
+File:         status_panel.py
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  Top status banner widget with live status indicator LED, progress bar, and clock
+================================================================================
 """
+
 import customtkinter as ctk
 from datetime import datetime
 

@@ -1,15 +1,12 @@
 """
-********************************************************************************
-* MODULE:       results_table.py
-* AUTHOR:       Harry Rogers
-* DATE:         2026
-*
-* DESCRIPTION:
-* Table widget that lists verification run summaries. Shows the job ID,
-* filename, run status, and actual pass/fail or local/AI outcome.
-* Includes a quick action to open the latest log file.
-********************************************************************************
+================================================================================
+File:         results_table.py
+Written by:   Harry Rogers
+Date:         May 2026
+Description:  Tabular test outcome viewer displaying status, expected vs actual values, and latency
+================================================================================
 """
+
 import os
 import glob
 import customtkinter as ctk

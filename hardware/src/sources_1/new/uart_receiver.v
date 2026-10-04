@@ -1,27 +1,10 @@
 /*
-********************************************************************************
-* MODULE:       uart_receiver
-* AUTHOR:       Harry Rogers (Adapted from Nandland UART module)
-* DATE:         2026
-*
-* DESCRIPTION: 
-* This module acts as the physical reception layer. It continuously samples 
-* the serial RX line, synchronises the incoming asynchronous data to the system 
-* clock domain to prevent metastability, and constructs 8-bit parallel bytes 
-* from the serial bitstream.
-*
-* PARAMETERS:
-* CLKS_PER_BIT : Calculated by dividing the system clock frequency by the 
-* target baud rate (e.g., 100MHz / 230400 Baud).
-*
-* INPUTS:
-* clk           : System clock from the main module.
-* rx_serial_in  : The serialised 1-bit input line from the external device.
-*
-* OUTPUTS:
-* rx_data_valid : Pulses high for one clock cycle when a byte is fully received.
-* rx_byte_out   : 8-bit data bus holding the successfully received byte.
-********************************************************************************
+================================================================================
+File:         uart_receiver.v
+Written by:   Harry Rogers (Adapted from Nandland UART module)
+Date:         May 2026
+Description:  Serial UART receiver core with 16x oversampling and framing error detection
+================================================================================
 */
 
 module uart_receiver #(
