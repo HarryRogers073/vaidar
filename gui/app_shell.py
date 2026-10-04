@@ -134,14 +134,14 @@ class App(ctk.CTk):
         btn_row.pack(fill="x", padx=16, pady=(0, 14))
 
         ctk.CTkButton(
-            btn_row, text="⚙ Settings", height=32,
+            btn_row, text="Settings", height=32,
             command=self.open_settings,
             fg_color=("#475569", "#334155"), hover_color=("#334155", "#1e293b"),
             font=ctk.CTkFont(size=11)
         ).pack(side="left", fill="x", expand=True, padx=(0, 4))
 
         ctk.CTkButton(
-            btn_row, text="ℹ App Info", height=32,
+            btn_row, text="App Info", height=32,
             command=self.open_app_info,
             fg_color=("#475569", "#334155"), hover_color=("#334155", "#1e293b"),
             font=ctk.CTkFont(size=11)

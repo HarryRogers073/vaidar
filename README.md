@@ -9,7 +9,7 @@
 
 ---
 
-### ◆ Academic Integrity & Attribution Disclosure
+### Academic Integrity & Attribution Disclosure
 - **Author:** Developed and authored by **Harry Rogers** as an individual BEng dissertation project under academic supervision at the University of Brighton.
 - **Award:** Recognised with **The IET Prize 2026** by the Institution of Engineering and Technology (Final Dissertation Grade: 91% / A+).
 - **Custom Hardware & Firmware:** All custom Verilog RTL modules (16-bit ALU, control FSM, seven-segment display controller) and all Python software (GUI, execution engine, golden model, device profiles) were written by Harry Rogers.
@@ -18,7 +18,7 @@
 
 ---
 
-## ★ Key Performance & Features
+## Key Performance & Features
 
 - **91% Final Distinction Grade (A+)** in Capstone Individual Dissertation Project.
 - **Recipient of the IET Prize 2026** awarded by the Institution of Engineering and Technology.
@@ -29,7 +29,7 @@
 
 ---
 
-## ◆ System Architecture
+## System Architecture
 
 The verification framework operates as a closed-loop transaction pipeline between the host workstation and the physical FPGA testbed:
 
@@ -70,7 +70,7 @@ flowchart TD
 
 ---
 
-## ◆ Software Structure
+## Software Structure
 
 VAIDAR organizes verification into clear, decoupled layers:
 
@@ -80,7 +80,7 @@ VAIDAR organizes verification into clear, decoupled layers:
 
 ---
 
-## ⚡ Hardware Implementation (Verilog HDL)
+## Hardware Implementation (Verilog HDL)
 
 Targeted to the **AMD Xilinx Artix-7 (`XC7A100T-1CSG324C`)** on the Digilent Nexys A7 development board:
 
@@ -124,7 +124,7 @@ If you don't have a physical FPGA board connected:
 
 ---
 
-## ◆ Repository Structure
+## Repository Structure
 
 ```text
 vaidar/
@@ -167,7 +167,7 @@ vaidar/
 
 ---
 
-## ★ Academic Attribution & Author
+## Academic Attribution & Author
 
 - **Author:** Harry Rogers
 - **Degree:** BEng (Hons) Electronic & Computer Engineering (First-Class Honours, 80% Overall)
@@ -179,5 +179,5 @@ vaidar/
 
 ---
 
-## ◆ License
+## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
