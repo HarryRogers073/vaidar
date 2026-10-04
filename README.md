@@ -1,6 +1,6 @@
 # VAIDAR: Verification & Artificial Intelligence for Digital Architecture Runtime
 
-[![Dissertation Grade](https://img.shields.io/badge/Dissertation%20Grade-91%25%20(A%2B)-success?style=for-the-badge&logo=academic-tree)](https://www.harry-rogers.com)
+[![Dissertation Grade](https://img.shields.io/badge/Dissertation%20Grade-First%20Class%2091%25%20(A%2B)-success?style=for-the-badge&logo=academic-tree)](https://www.harry-rogers.com)
 [![Award](https://img.shields.io/badge/Award-IET%20Prize%20Winner%202026-blue?style=for-the-badge&logo=shield)](https://www.harry-rogers.com)
 [![Target Silicon](https://img.shields.io/badge/Target%20Silicon-AMD%20Xilinx%20Artix--7%20(Nexys%20A7)-orange?style=for-the-badge&logo=xilinx)](https://digilent.com/reference/programmable-logic/nexys-a7/start)
 [![Language](https://img.shields.io/badge/Language-Python%203%20%7C%20Verilog%20HDL-teal?style=for-the-badge&logo=python)](https://github.com/HarryRogers073/vaidar)
@@ -11,7 +11,7 @@
 
 ### Academic Integrity & Attribution Disclosure
 - **Author:** Developed and authored by **Harry Rogers** as an individual BEng dissertation project under academic supervision at the University of Brighton.
-- **Award:** Recognised with **The IET Prize 2026** by the Institution of Engineering and Technology (Final Dissertation Grade: 91% / A+).
+- **Award:** Recognised with **The IET Prize 2026** by the Institution of Engineering and Technology (Final Dissertation Grade: First Class 91% / A+).
 - **Custom Hardware & Firmware:** All custom Verilog RTL modules (16-bit ALU, control FSM, seven-segment display controller) and all Python software (GUI, execution engine, golden model, device profiles) were written by Harry Rogers.
 - **Adapted Hardware:** The UART receiver core (`hardware/src/sources_1/new/uart_receiver.v`) was adapted from Russell Merrick's open-source Nandland UART module with custom oversampling and framing for this platform.
 - **Third-Party Libraries:** Standard open-source libraries used include `pyserial` (serial communication), `customtkinter` (desktop GUI), `matplotlib` (waveform plotting), and official API SDKs from Google, Anthropic, and OpenAI.
@@ -20,7 +20,7 @@
 
 ## Key Performance & Features
 
-- **91% Final Distinction Grade (A+)** in Capstone Individual Dissertation Project.
+- **First Class 91% (A+)** in Capstone Individual Dissertation Project.
 - **Recipient of the IET Prize 2026** awarded by the Institution of Engineering and Technology.
 - **~1,000 Tests/Second Throughput:** Streams test vectors over a 921,600 baud serial connection, validating physical silicon outputs orders of magnitude faster than manual bench probing.
 - **Deterministic Golden Model:** Software simulation in Python computes expected NZCV flags and arithmetic outputs for cycle-accurate assertion checks.
@@ -170,9 +170,9 @@ vaidar/
 ## Academic Attribution & Author
 
 - **Author:** Harry Rogers
-- **Degree:** BEng (Hons) Electronic & Computer Engineering (First-Class Honours, 80% Overall)
+- **Degree:** BEng (Hons) Electronic & Computer Engineering (First Class 80%)
 - **Institution:** University of Brighton
-- **Project:** Capstone BEng Individual Dissertation Project (Grade: 91% / A+)
+- **Project:** Capstone BEng Individual Dissertation Project (First Class 91% / A+)
 - **Distinction:** Recipient of **The IET Prize 2026**
 - **Website:** [www.harry-rogers.com](https://www.harry-rogers.com)
 - **LinkedIn:** [linkedin.com/in/harryrogers073](https://www.linkedin.com/in/harryrogers073/)
