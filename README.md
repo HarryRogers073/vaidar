@@ -1,11 +1,21 @@
-# VAIDAR: Verification & Artificial Intelligence for Digital Architecture Runtime
+# VAIDAR
+### **V**erification & **A**rtificial **I**ntelligence for **D**igital **A**rchitecture **R**untime
 
+[![CI](https://github.com/HarryRogers073/vaidar/actions/workflows/ci.yml/badge.svg)](https://github.com/HarryRogers073/vaidar/actions)
 [![Dissertation Grade](https://img.shields.io/badge/Dissertation%20Grade-First%20Class%2091%25%20(A%2B)-success?style=for-the-badge&logo=academic-tree)](https://www.harry-rogers.com)
 [![Award](https://img.shields.io/badge/Award-IET%20Prize%20Winner%202026-blue?style=for-the-badge&logo=shield)](https://www.harry-rogers.com)
 [![Target Silicon](https://img.shields.io/badge/Target%20Silicon-AMD%20Xilinx%20Artix--7%20(Nexys%20A7)-orange?style=for-the-badge&logo=xilinx)](https://digilent.com/reference/programmable-logic/nexys-a7/start)
 [![Language](https://img.shields.io/badge/Language-Python%203%20%7C%20Verilog%20HDL-teal?style=for-the-badge&logo=python)](https://github.com/HarryRogers073/vaidar)
 
-> **VAIDAR** is an automated Hardware-in-the-Loop (HIL) verification testbench developed as my Final Year BEng dissertation project at the **University of Brighton**. It connects Python test automation directly to physical FPGA silicon over a high-speed (921,600 baud) UART link. It streams test vectors into physical registers, validates outputs against a software golden model at ~1,000 tests per second, and provides an optional LLM interface (Gemini, Claude, GPT) for edge-case test generation and failure diagnosis.
+> **VAIDAR** (**V**erification & **A**rtificial **I**ntelligence for **D**igital **A**rchitecture **R**untime) is an automated Hardware-in-the-Loop (HIL) verification testbench developed as my Final Year BEng dissertation project at the **University of Brighton**. Inspired by telemetry principles in RADAR and LiDAR systems, it connects Python test automation directly to physical FPGA silicon over a high-speed (921,600 baud) UART link. It streams test vectors into physical registers, validates outputs against a software golden model at ~1,000 tests per second, and provides an optional LLM interface (Gemini, Claude, GPT) for edge-case test generation and failure diagnosis.
+
+| Letter | Component | Engineering Role in the System |
+| :---: | :--- | :--- |
+| **V** | **Verification** | Automated HIL assertion testbench & cycle-accurate software golden model |
+| **AI** | **Artificial Intelligence** | LLM edge-case stimulus synthesis & automated failure triage |
+| **D** | **Digital** | Register-transfer level (RTL) Verilog logic & control FSM design |
+| **A** | **Architecture** | 16-bit ALU core synthesized onto AMD Xilinx Artix-7 silicon |
+| **R** | **Runtime** | Real-time 921,600 baud streaming execution engine (~1,000 tests/sec) |
 
 ---
 
@@ -14,7 +24,7 @@
 - **Award:** Recognised with **The IET Prize 2026** by the Institution of Engineering and Technology (Final Dissertation Grade: First Class 91% / A+).
 - **Custom Hardware & Firmware:** All custom Verilog RTL modules (16-bit ALU, control FSM, seven-segment display controller) and all Python software (GUI, execution engine, golden model, device profiles) were written by Harry Rogers.
 - **Adapted Hardware:** The UART receiver core (`hardware/src/sources_1/new/uart_receiver.v`) was adapted from Russell Merrick's open-source Nandland UART module with custom oversampling and framing for this platform.
-- **Third-Party Libraries:** Standard open-source libraries used include `pyserial` (serial communication), `customtkinter` (desktop GUI), and official API SDKs from Google, Anthropic, and OpenAI.
+- **Third-Party Libraries:** Standard open-source libraries used include `pyserial` (serial communication), `customtkinter` (desktop GUI), `watchdog` (test queue file monitor), and official API SDKs from Google, Anthropic, and OpenAI.
 
 ---
 
@@ -27,6 +37,24 @@
 - **AI-Assisted Test Generation:** Integrated LLM interfaces for automated boundary test generation and root-cause clustering of failure logs.
 - **Modular Hardware Interfaces:** Easily switch between physical UART, TCP/IP, or offline software Mock simulation mode (no hardware required to evaluate).
 - **Pre-Built Bitstreams Included:** Program the physical FPGA board immediately without needing a 50GB Xilinx Vivado installation.
+
+---
+
+## 📸 Visual Tour & System Dashboard
+
+### High-Throughput Verification GUI
+The desktop dashboard provides real-time logic analyser waveforms, cycle-accurate pass/fail assertion monitors, and an integrated AI assistant:
+
+![VAIDAR CustomTkinter GUI Verification Dashboard](docs/images/gui-testing-suite.png)
+*Figure 1: High-throughput CustomTkinter GUI dashboard displaying real-time logic analyser signal traces (rendered via native Tkinter Canvas), transaction status, and telemetry.*
+
+<br/>
+
+### Physical Hardware-in-the-Loop Testbed
+The host execution engine connects to physical FPGA silicon over high-speed serial links:
+
+![Physical FPGA Hardware-in-the-Loop Testbed](docs/images/testbed-hardware.png)
+*Figure 2: Physical validation testbed connecting dual host workstations to Digilent Nexys A7-100T development boards via 921,600-baud CP2102/FTDI bridges.*
 
 ---
 
@@ -282,6 +310,16 @@ VAIDAR includes optional LLM integration (Google Gemini, Anthropic Claude, OpenA
 
 ---
 
+### 7. Running Automated CI / Regression Tests
+
+Execute the automated test suite locally to verify the golden model, packet serialisation, and mock HIL execution:
+
+```bash
+python -m unittest discover tests
+```
+
+---
+
 ## 📁 Sample Test Suites Included
 
 All sample tests are located under [`sample_tests/`](sample_tests/):
@@ -294,51 +332,75 @@ All sample tests are located under [`sample_tests/`](sample_tests/):
 
 ---
 
-## 📂 Repository File Tree
+## 📂 Architecture & Directory Breakdown
+
+The codebase is organized into decoupled architectural layers:
+
+| Layer / Directory | Primary Role | Key Components |
+| :--- | :--- | :--- |
+| **`hardware/`** | **FPGA Silicon & RTL** | Synthesizable Verilog sources (`top_16bit_alu.v`, `uart_receiver.v`, `seven_segment_controller.v`), XDC timing constraints, and pre-built bitstream (`top_16bit_alu.bit`). |
+| **`core/`** | **Execution Engine & Golden Model** | Transaction engine (`engine.py`), software golden model & flag calculator (`generate_tests.py`), abstract interfaces (`interfaces.py`), and configuration parser (`config_manager.py`). |
+| **`drivers/`** | **Hardware Abstraction Layer (HAL)** | High-speed buffered PySerial driver (`uart_driver.py`) and loopback software emulator (`mock_driver.py`). |
+| **`profiles/`** | **Target Device Schemas** | Pluggable schemas converting test dicts into packed binary frames (`alu_16bit.py`, `alu_8bit.py`, `encoder_3to5.py`). |
+| **`gui/`** | **Visual Telemetry & Controls** | CustomTkinter application shell (`app_shell.py`), native Canvas logic analyser (`live_graph.py`), and interactive AI prompt console (`ai_console.py`). |
+| **`ai/`** | **Intelligent Verification (LLMs)** | Model API connectors for Google Gemini (`gemini_provider.py`), Anthropic Claude (`claude_provider.py`), and OpenAI (`chatgpt_provider.py`). |
+| **`sample_tests/`** | **Verification Test Packages** | Curated CSV test packages for targeted opcodes, human visual audits, and 100k throughput stress benchmarks. |
+| **`tests/`** | **Automated Unit Testing** | Regression test suite (`test_vaidar_core.py`) verifying golden model assertions, binary packet packing, and mock execution. |
+| **`.github/`** | **Continuous Integration** | Automated multi-version GitHub Actions workflow testing on push and pull requests. |
+
+### Complete Repository File Tree
 
 ```text
 vaidar/
-├── app.py                      # Main application entry point
+├── .github/
+│   └── workflows/
+│       └── ci.yml              # GitHub Actions CI matrix (Python 3.10–3.12)
+├── app.py                      # Main desktop application entry point
 ├── config.json                 # Persistent configuration settings
-├── requirements.txt            # Python dependencies
-├── run.bat                     # Windows one-click launcher
+├── requirements.txt            # Python dependencies (lightweight, zero bloat)
+├── run.bat                     # Windows one-click desktop launcher
 ├── .env.example                # API key template (git-ignored .env)
 ├── ai/                         # Multi-provider LLM integrations
 │   ├── gemini_provider.py      # Google Gemini client
 │   ├── claude_provider.py      # Anthropic Claude client
 │   ├── chatgpt_provider.py     # OpenAI ChatGPT client
 │   └── mock_provider.py        # Offline simulated AI provider
-├── core/                       # Core execution engine
-│   ├── engine.py               # TestEngine transaction coordinator
+├── core/                       # Core execution engine & golden model
+│   ├── engine.py               # TestEngine transaction coordinator & file watcher
 │   ├── interfaces.py           # Abstract base classes (DeviceProfile, CommDriver)
-│   ├── generate_tests.py       # Algorithmic test generator & golden model
+│   ├── generate_tests.py       # Algorithmic test generator & NZCV flag calculator
 │   └── config_manager.py       # Configuration parser & key manager
 ├── drivers/                    # Transport layer implementations
 │   ├── uart_driver.py          # PySerial hardware UART driver (921,600 baud)
-│   └── mock_driver.py          # Software loopback driver
+│   └── mock_driver.py          # Software loopback driver for hardware-free evaluation
 ├── profiles/                   # Target DUT device profiles
-│   ├── alu_16bit.py            # Digilent Nexys A7 16-bit ALU profile
+│   ├── alu_16bit.py            # Digilent Nexys A7 16-bit ALU profile & opcodes
 │   ├── alu_8bit.py             # 8-bit coprocessor profile
 │   └── encoder_3to5.py         # Priority encoder profile
 ├── gui/                        # CustomTkinter graphical dashboard
-│   ├── app_shell.py            # Main application window & tabs
-│   ├── live_graph.py           # Oscilloscope waveform visualization
+│   ├── app_shell.py            # Main application window, tabs & status pills
+│   ├── live_graph.py           # Native Tkinter Canvas logic analyser & waveforms
 │   ├── ai_console.py           # Interactive AI assistant panel
 │   └── results_table.py        # Live telemetry and pass/fail table
 ├── hardware/                   # Vivado hardware project & Verilog RTL
 │   ├── ALU.xpr                 # Vivado project file
 │   ├── bitstreams/             # Pre-compiled bitstreams (no Vivado needed!)
-│   │   └── top_16bit_alu.bit   # Flash-ready Artix-7 bitstream
+│   │   └── top_16bit_alu.bit   # Flash-ready Artix-7 bitstream (USB boot ready)
 │   └── src/                    # Verilog sources & XDC constraints
 │       ├── sources_1/new/top_16bit_alu.v
 │       ├── sources_1/new/uart_receiver.v
 │       ├── sources_1/new/seven_segment_controller.v
 │       └── constrs_1/new/nexys_a7_alu.xdc
 ├── sample_tests/               # Curated test vector suites
-│   ├── 01_Targeted_Command_Tests/
-│   ├── 02_Visual_Demonstration_Tests/
-│   └── 03_Scale_Throughput_Benchmarks/
-└── docs/                       # Architectural diagrams & schematics
+│   ├── 01_Targeted_Command_Tests/      # 17 opcode-specific test suites
+│   ├── 02_Visual_Demonstration_Tests/  # 10s-delay visual auditing tests
+│   └── 03_Scale_Throughput_Benchmarks/ # 10 to 100k throughput benchmarks
+├── tests/                      # Automated regression test suite
+│   ├── __init__.py
+│   └── test_vaidar_core.py     # Unittest suite (Golden model, HAL, Framing)
+└── docs/                       # Architectural diagrams & media
+    ├── diagrams/               # 20+ architectural schematics and flowcharts
+    └── images/                 # High-resolution GUI and testbed photography
 ```
 
 ---

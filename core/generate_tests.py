@@ -14,6 +14,11 @@ import math
 # Simulated register file to track state between tests
 simulated_registers = [0, 0, 0, 0]
 
+def reset_registers():
+    """Reset the simulated register file to initial zero state."""
+    global simulated_registers
+    simulated_registers = [0, 0, 0, 0]
+
 def calculate_flags(op, a, b):
     global simulated_registers
     mask = 0xFFFF

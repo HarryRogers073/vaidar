@@ -9,7 +9,7 @@ Description:  Loopback software simulation driver emulating FPGA response packet
 
 import time
 from core.interfaces import CommDriver
-from core.generate_tests import calculate_flags
+from core.generate_tests import calculate_flags, reset_registers
 
 
 class MockDriver(CommDriver):
@@ -24,11 +24,17 @@ class MockDriver(CommDriver):
 
     def connect(self):
         self.connected = True
+        reset_registers()
         return True
 
     def disconnect(self):
         self.connected = False
         self._rx_buffer.clear()
+        reset_registers()
+
+    def clear_buffer(self):
+        self._rx_buffer.clear()
+        reset_registers()
 
     def send_packet(self, data: bytes):
         if not self.connected:
