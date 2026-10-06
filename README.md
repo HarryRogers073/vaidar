@@ -14,7 +14,7 @@
 | **V** | **Verification** | Automated HIL assertion testbench & cycle-accurate software golden model |
 | **AI** | **Artificial Intelligence** | LLM edge-case stimulus synthesis & automated failure triage |
 | **D** | **Digital** | Register-transfer level (RTL) Verilog logic & control FSM design |
-| **A** | **Architecture** | 16-bit ALU core synthesized onto AMD Xilinx Artix-7 silicon |
+| **A** | **Architecture** | 16-bit ALU core synthesised onto AMD Xilinx Artix-7 silicon |
 | **R** | **Runtime** | Real-time 921,600 baud streaming execution engine (~1,000 tests/sec) |
 
 ---
@@ -68,7 +68,7 @@ flowchart TD
         UI["CustomTkinter GUI\n(Live Waveforms, Controls, Logs)"]
         AI["AI Test Generator\n(Gemini / Claude / OpenAI API)"]
         ENG["TestEngine\n(Batch Execution & Comparison)"]
-        PROF["DeviceProfile\n(Packet Serialization & Schemas)"]
+        PROF["DeviceProfile\n(Packet Serialisation & Schemas)"]
         DRV["CommDriver\n(Buffered Serial Transport)"]
     end
 
@@ -77,7 +77,7 @@ flowchart TD
     end
 
     subgraph Target ["Physical FPGA (Digilent Nexys A7-100T)"]
-        RX["UART Receiver Module\n(Oversampling & Deserializer)"]
+        RX["UART Receiver Module\n(Oversampling & Deserialiser)"]
         FSM["Control Finite State Machine\n(IDLE -> LATCH -> EXECUTE -> TX)"]
         ALU["16-Bit Arithmetic Logic Unit (DUT)\n(ADD, SUB, AND, OR, XOR, SHIFT)"]
         DISP["Multiplexed 7-Segment Controller\n(Live Bus & Register Monitor)"]
@@ -334,11 +334,11 @@ All sample tests are located under [`sample_tests/`](sample_tests/):
 
 ## 📂 Architecture & Directory Breakdown
 
-The codebase is organized into decoupled architectural layers:
+The codebase is organised into decoupled architectural layers:
 
 | Layer / Directory | Primary Role | Key Components |
 | :--- | :--- | :--- |
-| **`hardware/`** | **FPGA Silicon & RTL** | Synthesizable Verilog sources (`top_16bit_alu.v`, `uart_receiver.v`, `seven_segment_controller.v`), XDC timing constraints, and pre-built bitstream (`top_16bit_alu.bit`). |
+| **`hardware/`** | **FPGA Silicon & RTL** | Synthesised Verilog sources (`top_16bit_alu.v`, `uart_receiver.v`, `seven_segment_controller.v`), XDC timing constraints, and pre-built bitstream (`top_16bit_alu.bit`). |
 | **`core/`** | **Execution Engine & Golden Model** | Transaction engine (`engine.py`), software golden model & flag calculator (`generate_tests.py`), abstract interfaces (`interfaces.py`), and configuration parser (`config_manager.py`). |
 | **`drivers/`** | **Hardware Abstraction Layer (HAL)** | High-speed buffered PySerial driver (`uart_driver.py`) and loopback software emulator (`mock_driver.py`). |
 | **`profiles/`** | **Target Device Schemas** | Pluggable schemas converting test dicts into packed binary frames (`alu_16bit.py`, `alu_8bit.py`, `encoder_3to5.py`). |

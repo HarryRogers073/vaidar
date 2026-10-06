@@ -17,7 +17,7 @@ simulated_registers = [0, 0, 0, 0]
 def reset_registers():
     """Reset the simulated register file to initial zero state."""
     global simulated_registers
-    simulated_registers = [0, 0, 0, 0]
+    simulated_registers[:] = [0, 0, 0, 0]
 
 def calculate_flags(op, a, b):
     global simulated_registers
@@ -111,8 +111,7 @@ def calculate_flags(op, a, b):
     return res, n, z, c, v
 
 def generate_test_file(filename, num_tests):
-    global simulated_registers
-    simulated_registers = [0, 0, 0, 0]
+    reset_registers()
     
     commands = ['ADD', 'SUB', 'MUL', 'DIV', 'MOD', 'SQRT', 'POW', 'AND', 'OR', 'XOR', 'NOT', 'SHL', 'SHR', 'INC', 'DEC', 'NEG', 'STO', 'RCL']
     
@@ -136,6 +135,7 @@ def generate_test_file(filename, num_tests):
             res, n, z, c, v = calculate_flags(op, a, b)
             writer.writerow([op, a, b, res, n, z, c, v])
             
+    reset_registers()
     print(f"Successfully generated {num_tests} test vectors in '{filename}'.")
 
 if __name__ == "__main__":

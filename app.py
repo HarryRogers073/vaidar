@@ -75,21 +75,21 @@ def main():
         try:
             ai = GeminiProvider(api_key=api_key, model_name=model_name)
         except Exception as e:
-            print(f"Error initializing Gemini: {e}")
+            print(f"Error initialising Gemini: {e}")
             ai = MockProvider()
     elif ai_name == "Anthropic Claude" and api_key:
         try:
             from ai.claude_provider import ClaudeProvider
             ai = ClaudeProvider(api_key=api_key, model_name=model_name)
         except Exception as e:
-            print(f"Error initializing Claude: {e}")
+            print(f"Error initialising Claude: {e}")
             ai = MockProvider()
     elif ai_name == "OpenAI ChatGPT" and api_key:
         try:
             from ai.chatgpt_provider import ChatGPTProvider
             ai = ChatGPTProvider(api_key=api_key, model_name=model_name)
         except Exception as e:
-            print(f"Error initializing ChatGPT: {e}")
+            print(f"Error initialising ChatGPT: {e}")
             ai = MockProvider()
     else:
         ai = MockProvider()

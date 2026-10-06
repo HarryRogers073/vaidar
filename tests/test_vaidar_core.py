@@ -66,7 +66,7 @@ class TestVaidarCore(unittest.TestCase):
         self.assertEqual(res, (5 - 10) & 0xFFFF)
         self.assertEqual(c, 1)
 
-    def test_packet_serialization_roundtrip(self):
+    def test_packet_serialisation_roundtrip(self):
         """Verify 16-bit ALU packet packing and unpacking."""
         test_row = {
             'Operation': 'ADD',

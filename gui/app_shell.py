@@ -248,7 +248,7 @@ class App(ctk.CTk):
         InfoDialog(self, self.engine.profile)
 
     def _on_settings_saved(self):
-        """Callback to reinitialize the profile, driver, and AI provider dynamically."""
+        """Callback to reinitialise the profile, driver, and AI provider dynamically."""
         try:
             # Stop watchdog and disconnect first to free ports
             self.engine.stop_watchdog()
