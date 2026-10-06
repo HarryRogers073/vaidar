@@ -1,0 +1,6 @@
+Operation,Operand A,Operand B,Expected Result,Flag N,Flag Z,Flag C,Flag V
+STO,123,0,0,0,1,0,0
+RCL,0,0,123,0,0,0,0
+STO,456,1,0,0,1,0,0
+RCL,0,1,456,0,0,0,0
+RCL,0,0,123,0,0,0,0

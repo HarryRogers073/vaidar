@@ -1,0 +1,4 @@
+Operation,Operand A,Operand B,Expected Result,Flag N,Flag Z,Flag C,Flag V
+SHR,16,2,4,0,0,0,0
+SHR,32768,15,1,0,0,0,0
+SHR,256,4,16,0,0,0,0

@@ -25,7 +25,8 @@
 - **~1,000 Tests/Second Throughput:** Streams test vectors over a 921,600 baud serial connection, validating physical silicon outputs orders of magnitude faster than manual bench probing.
 - **Deterministic Golden Model:** Software simulation in Python computes expected NZCV flags and arithmetic outputs for cycle-accurate assertion checks.
 - **AI-Assisted Test Generation:** Integrated LLM interfaces for automated boundary test generation and root-cause clustering of failure logs.
-- **Modular Hardware Interfaces:** Easily switch between physical UART, TCP/IP, or offline software Mock simulation mode.
+- **Modular Hardware Interfaces:** Easily switch between physical UART, TCP/IP, or offline software Mock simulation mode (no hardware required to evaluate).
+- **Pre-Built Bitstreams Included:** Program the physical FPGA board immediately without needing a 50GB Xilinx Vivado installation.
 
 ---
 
@@ -70,98 +71,273 @@ flowchart TD
 
 ---
 
-## Software Structure
+## 🔌 Complete Hardware Setup & Physical Testbed Guide
 
-VAIDAR organizes verification into clear, decoupled layers:
+Anyone with a Digilent Nexys A7 development board can replicate this setup in under 5 minutes.
 
-1. **`TestEngine` (`core/engine.py`):** Coordinates batch test queues, monitors transaction timeouts, compares physical FPGA response bytes against the software golden model, and records detailed pass/fail logs.
-2. **`DeviceProfile` (`core/interfaces.py`):** Converts human-readable test vector dictionaries into packed binary frames (`pack_command`) and deserializes raw hardware byte responses into typed fields (`unpack_response`).
-3. **`CommDriver` (`core/interfaces.py`):** Manages serial communication (`uart_driver.py`) or loopback simulation (`mock_driver.py`) with automatic connection recovery.
-
----
-
-## Hardware Implementation (Verilog HDL)
-
-Targeted to the **AMD Xilinx Artix-7 (`XC7A100T-1CSG324C`)** on the Digilent Nexys A7 development board:
-
-- **`top_16bit_alu.v`:** Top-level hardware module integrating the arithmetic core, internal registers, and control FSM.
-- **`uart_receiver.v`:** Serial UART receiver with 16x oversampling and framing error detection (adapted from Nandland).
-- **`seven_segment_controller.v`:** Multiplexed 7-segment display driver for live visual inspection of accumulator registers and status flags.
-- **`nexys_a7_alu.xdc`:** Timing constraints (100 MHz oscillator) and pin allocations for onboard peripherals and USB-UART bridge.
+### 1. Hardware Requirements
+| Item | Specification | Notes |
+| :--- | :--- | :--- |
+| **FPGA Board** | **Digilent Nexys A7-100T** (or Nexys 4 DDR) | AMD Xilinx Artix-7 `XC7A100T-1CSG324C` |
+| **Interface Cable** | Micro-USB to USB-A (or USB-C) | High-speed data cable (not power-only) |
+| **Host PC** | Windows 10/11, Linux, or macOS | Python 3.10+ installed |
+| **Optional Boot Drive** | FAT32 USB Thumb Drive | Required only for standalone USB boot |
 
 ---
 
-## → Quick Start
+### 2. Physical Jumper & Switch Settings
 
-### 1. Installation
-Clone the repository and install dependencies:
+Before connecting the board, verify the following jumpers on the Nexys A7:
+
+1. **Power Select Jumper (`JP3`)**: Set to **`USB`** (pins 1-2) to power the board from your PC's USB port. (If using an external 5V power supply, set to `WALL`).
+2. **Programming Mode Jumper (`JP2` - labelled "MODE")**:
+   - **For USB Flash Drive Boot (No Vivado Needed)**: Set to **`USB/SD`** (pins 2-3).
+   - **For Vivado / JTAG Programming**: Set to **`JTAG`** (pins 1-2).
+3. **Power Switch (`SW15`)**: Ensure the switch is initially in the **OFF** position.
+
+---
+
+### 3. Physical Connections
+1. Connect the Micro-USB cable from your PC to the Nexys A7's **`PROG / UART` port (`J4`)** located directly adjacent to the power switch. *(Note: Do NOT connect to `USB HOST J8` for host communications — J4 handles both JTAG programming and high-speed UART serial).*
+2. Flip power switch **`SW15`** to **ON**. The red power LED will illuminate.
+
+---
+
+### 4. Crucial Performance Tweak (Windows FTDI Latency Timer)
+
+> [!IMPORTANT]
+> **This step is critical to achieve ~1,000 tests/second.**
+> By default, the Windows FTDI USB-Serial driver buffers small byte packets for **16 milliseconds** before flushing them to the operating system. Because VAIDAR operates on an interactive request-response transaction model, this 16 ms delay throttles test throughput down to ~60 tests/sec. Lowering the latency timer to **1 ms** unlocks the full 921,600 baud serial bandwidth.
+
+**How to configure:**
+1. Open **Windows Device Manager** (`Win + X` -> **Device Manager**).
+2. Expand the **Ports (COM & LPT)** branch.
+3. Locate **USB Serial Port (COMx)** corresponding to your Nexys A7.
+4. Right-click the port and select **Properties**.
+5. Go to the **Port Settings** tab and click **Advanced...**
+6. Change the **Latency Timer (msec)** setting from `16` to **`1`**.
+7. Click **OK**, then click **OK** again to apply.
+
+```text
+Device Manager -> Ports (COM & LPT) -> USB Serial Port (COMx)
+  └── Properties -> Port Settings -> Advanced... -> Latency Timer (msec) = 1
+```
+
+---
+
+### 5. Programming the Physical FPGA
+
+Choose one of three methods:
+
+#### Method A: Standalone USB Flash Drive Boot (Zero Vivado Installation Required)
+1. Format a USB thumb drive to **FAT32**.
+2. Copy the pre-built bitstream [`hardware/bitstreams/top_16bit_alu.bit`](hardware/bitstreams/top_16bit_alu.bit) to the **root** of the USB drive.
+3. Insert the USB drive into the Nexys A7's **`USB HOST` port (`J8`)** (next to the RJ-45 Ethernet jack).
+4. Set the **`JP2` (MODE)** jumper to **`USB/SD`**.
+5. Switch **`SW15`** to **ON**.
+6. The yellow **BUSY** LED will flash while configuring, followed by the bright green **DONE** LED turning solid. The FPGA is now fully programmed and listening!
+
+#### Method B: Vivado Hardware Manager / Digilent Adept
+1. Set the **`JP2` (MODE)** jumper to **`JTAG`**.
+2. Open **Vivado Hardware Manager** (or Digilent Adept).
+3. Click **Open Target** -> **Auto Connect**.
+4. Select the `xc7a100t` target device and click **Program Device**.
+5. Browse to [`hardware/bitstreams/top_16bit_alu.bit`](hardware/bitstreams/top_16bit_alu.bit) and flash.
+
+#### Method C: Recompile from Source
+1. Open [`hardware/ALU.xpr`](hardware/ALU.xpr) in AMD Xilinx Vivado (2022.2+ or 2024.x).
+2. Click **Generate Bitstream** in the Flow Navigator to run synthesis, place & route, and bitstream generation.
+
+---
+
+### 6. On-Board Peripheral Map & Live Visual Auditing
+
+While tests are executing, you can visually audit the physical hardware logic directly on the Nexys A7:
+
+```text
+  ┌─────────────────────────────────────────────────────────────┐
+  │                 NEXYS A7-100T HARDWARE BUS                  │
+  ├──────────────────────────────┬──────────────────────────────┤
+  │ Seven-Segment Display        │ Status LEDs (NZCV Flags)     │
+  │ [ DIGITS 7..4 ] [ DIGITS 3..0 ] │ [LD3] [LD2] [LD1] [LD0] [LD15]│
+  │   Operand A /      16-bit    │   V     C     Z     N    Ready │
+  │ Active Opcode      Result    │ Over  Carry Zero  Neg   Heart  │
+  └──────────────────────────────┴──────────────────────────────┘
+```
+
+- **Eight-Digit Multiplexed Seven-Segment Display**:
+  - **Digits 7..4 (Left):** Displays Operand A or the active ALU opcode mnemonic.
+  - **Digits 3..0 (Right):** Displays the raw 16-bit ALU calculation result in hexadecimal.
+- **Status LEDs (Condition Code Register)**:
+  - **`LD0` — Negative Flag (N):** Illuminates when MSB (`Result[15]`) is `1` (negative signed value).
+  - **`LD1` — Zero Flag (Z):** Illuminates when the computation result equals `0x0000`.
+  - **`LD2` — Carry Flag (C):** Illuminates when an arithmetic carry out or borrow occurs.
+  - **`LD3` — Overflow Flag (V):** Illuminates on signed two's-complement overflow or divide-by-zero.
+  - **`LD15` — Ready Indicator:** Blinks to confirm active UART clock recovery and FSM idle sync.
+
+---
+
+## 💻 Software Installation & Step-by-Step Execution
+
+### 1. Prerequisites
+- **Python 3.10+** (tested on 3.10, 3.11, 3.12).
+- Git.
+
+### 2. Clone and Setup Environment
 ```bash
+# Clone the repository
 git clone https://github.com/HarryRogers073/vaidar.git
 cd vaidar
+
+# Create and activate a clean virtual environment
+python -m venv venv
+
+# Windows (Command Prompt / PowerShell):
+venv\Scripts\activate
+
+# Linux / macOS:
+source venv/bin/activate
+
+# Install required dependencies
 pip install -r requirements.txt
 ```
 
-### 2. Configure Environment (Optional for AI features)
-Copy the example environment configuration:
-```bash
-cp .env.example .env
-```
-Add your API keys (`GEMINI_API_KEY`, `ANTHROPIC_API_KEY`, or `OPENAI_API_KEY`) if you want to use automated test generation.
+---
 
-### 3. Launch the GUI
-Run the application launcher:
+### 3. Launching the GUI Dashboard
+
+Run the main application:
 ```bash
 python app.py
 ```
-*(On Windows, you can also double-click `run.bat`)*
-
-### 4. Running in Mock Mode (No Hardware Required)
-If you don't have a physical FPGA board connected:
-1. Open the application.
-2. In the **Connection Settings**, select `Mock (Simulation)` as the Driver.
-3. Select `16-bit ALU` as the Device Profile.
-4. Click **Start Verification** to observe live vector execution, waveforms, and pass/fail telemetry.
+*(On Windows, you can simply double-click `run.bat`)*
 
 ---
 
-## Repository Structure
+### 4. Running Your First Test (Step-by-Step)
+
+#### Workflow A: Physical Hardware Execution
+1. In the **Connection Settings** top bar:
+   - **Port:** Select your active FPGA COM port (e.g. `COM10` or `/dev/ttyUSB0`).
+   - **Baud Rate:** Ensure `921600` is selected.
+   - **Driver:** Choose `UART (Serial)`.
+   - **Device Profile:** Choose `16-bit ALU`.
+2. Click **Connect**. The status indicator will turn a solid green **Connected**.
+3. Click the **Upload CSV Batch** button.
+4. Navigate to [`sample_tests/02_Visual_Demonstration_Tests/`](sample_tests/02_Visual_Demonstration_Tests/) and select:
+   `visual_demo_01_arithmetic_10s_delay.csv`
+5. Click **Start Verification**.
+6. **Watch the physical Nexys A7 board!** Because this demo suite is pre-configured with a 10-second delay per vector, the board will step through operations slowly, allowing you to physically audit the 7-segment display and NZCV LEDs against the live terminal log.
+
+#### Workflow B: High-Throughput Silicon Benchmark (~1,000 tests/sec)
+1. Open the **⚙ Settings** dialog in the GUI.
+2. Set **Visual Delay (seconds)** to `0.0`.
+3. Click **Upload CSV Batch** and choose [`sample_tests/03_Scale_Throughput_Benchmarks/benchmark_010000_tests.csv`](sample_tests/03_Scale_Throughput_Benchmarks/).
+4. Click **Start Verification**.
+5. Observe sustained streaming throughput (>950 tests/sec), dynamic oscilloscope waveform plots, and real-time pass/fail assertion checks.
+
+#### Workflow C: Evaluating Without Hardware (Mock Mode)
+If you do not have physical FPGA hardware connected:
+1. Open the application.
+2. In **Connection Settings**, set Driver to **`Mock (Simulation)`**.
+3. Select any CSV test from `sample_tests/`.
+4. Click **Start Verification**. The framework will simulate execution against the internal Python golden model with full functional equivalence.
+
+---
+
+### 5. Generating Custom Test Vectors
+
+You can generate algorithmic test suites of any size using the built-in generator:
+
+```bash
+# Generate 1,000 random vectors:
+python -m core.generate_tests 1000 my_tests.csv
+
+# Generate 100,000 vectors for stress testing:
+python -m core.generate_tests 100000 stress_100k.csv
+```
+
+---
+
+### 6. AI-Assisted Test Generation & Anomaly Triage (Optional)
+
+VAIDAR includes optional LLM integration (Google Gemini, Anthropic Claude, OpenAI ChatGPT) for intelligent boundary test synthesis:
+
+1. Copy the template:
+   ```bash
+   cp .env.example .env
+   ```
+2. Open `.env` and paste your API key:
+   ```ini
+   GEMINI_API_KEY=your_key_here
+   # or ANTHROPIC_API_KEY=your_key_here
+   # or OPENAI_API_KEY=your_key_here
+   ```
+3. In the GUI, navigate to the **AI Assistant** tab.
+4. Enter natural-language verification requests (e.g. *"Generate 20 edge-case vectors testing signed two's-complement overflow on 16-bit subtraction"*).
+5. The model outputs syntactically valid CSV vectors directly into your test queue.
+
+> [!NOTE]
+> **API Key Security:** The `.env` file is explicitly ignored in `.gitignore`. Never commit API keys or secret credentials to source control.
+
+---
+
+## 📁 Sample Test Suites Included
+
+All sample tests are located under [`sample_tests/`](sample_tests/):
+
+| Directory | Contents & Purpose |
+| :--- | :--- |
+| **`01_Targeted_Command_Tests/`** | 17 command-specific test suites isolating individual ALU instructions: `ADD`, `SUB`, `MUL`, `DIV`, `MOD`, `SQRT`, `POW`, `AND`, `OR`, `XOR`, `NOT`, `SHL`, `SHR`, `INC`, `DEC`, `NEG`, and `STO_RCL`. |
+| **`02_Visual_Demonstration_Tests/`** | Slow-running 10-second delay suites designed specifically for human visual auditing of on-board seven-segment displays and status LEDs. |
+| **`03_Scale_Throughput_Benchmarks/`** | Scaled throughput stress tests: 10, 100, 1,000, 10,000, and 100,000 continuous test vector packages. |
+
+---
+
+## 📂 Repository File Tree
 
 ```text
 vaidar/
-├── app.py                      # Application entry point
+├── app.py                      # Main application entry point
 ├── config.json                 # Persistent configuration settings
 ├── requirements.txt            # Python dependencies
-├── .env.example                # Template for AI provider API keys
-├── ai/                         # LLM integration modules
-│   ├── gemini_provider.py      # Google Gemini API vector generator
-│   ├── claude_provider.py      # Anthropic Claude API provider
-│   ├── chatgpt_provider.py     # OpenAI GPT API provider
-│   └── mock_provider.py        # Offline simulated AI engine
-├── core/                       # Core execution runtime
-│   ├── engine.py               # TestEngine runner
+├── run.bat                     # Windows one-click launcher
+├── .env.example                # API key template (git-ignored .env)
+├── ai/                         # Multi-provider LLM integrations
+│   ├── gemini_provider.py      # Google Gemini client
+│   ├── claude_provider.py      # Anthropic Claude client
+│   ├── chatgpt_provider.py     # OpenAI ChatGPT client
+│   └── mock_provider.py        # Offline simulated AI provider
+├── core/                       # Core execution engine
+│   ├── engine.py               # TestEngine transaction coordinator
 │   ├── interfaces.py           # Abstract base classes (DeviceProfile, CommDriver)
-│   ├── generate_tests.py       # Algorithmic test vector generation & golden model
-│   └── config_manager.py       # Configuration parser
-├── drivers/                    # Transport layers
-│   ├── uart_driver.py          # PySerial hardware COM port driver
-│   └── mock_driver.py          # In-memory loopback simulation driver
-├── profiles/                   # Target device schemas
-│   ├── alu_16bit.py            # 16-bit ALU profile (Nexys A7)
+│   ├── generate_tests.py       # Algorithmic test generator & golden model
+│   └── config_manager.py       # Configuration parser & key manager
+├── drivers/                    # Transport layer implementations
+│   ├── uart_driver.py          # PySerial hardware UART driver (921,600 baud)
+│   └── mock_driver.py          # Software loopback driver
+├── profiles/                   # Target DUT device profiles
+│   ├── alu_16bit.py            # Digilent Nexys A7 16-bit ALU profile
 │   ├── alu_8bit.py             # 8-bit coprocessor profile
 │   └── encoder_3to5.py         # Priority encoder profile
 ├── gui/                        # CustomTkinter graphical dashboard
 │   ├── app_shell.py            # Main application window & tabs
-│   ├── live_graph.py           # Waveform oscilloscope visualization
-│   ├── ai_console.py           # Interactive AI assistant console
-│   └── results_table.py        # Live test telemetry and metrics table
-├── hardware/                   # Vivado FPGA project & Verilog HDL sources
+│   ├── live_graph.py           # Oscilloscope waveform visualization
+│   ├── ai_console.py           # Interactive AI assistant panel
+│   └── results_table.py        # Live telemetry and pass/fail table
+├── hardware/                   # Vivado hardware project & Verilog RTL
 │   ├── ALU.xpr                 # Vivado project file
+│   ├── bitstreams/             # Pre-compiled bitstreams (no Vivado needed!)
+│   │   └── top_16bit_alu.bit   # Flash-ready Artix-7 bitstream
 │   └── src/                    # Verilog sources & XDC constraints
 │       ├── sources_1/new/top_16bit_alu.v
 │       ├── sources_1/new/uart_receiver.v
 │       ├── sources_1/new/seven_segment_controller.v
 │       └── constrs_1/new/nexys_a7_alu.xdc
-├── test_queue/                 # Sample test vectors (CSV format)
+├── sample_tests/               # Curated test vector suites
+│   ├── 01_Targeted_Command_Tests/
+│   ├── 02_Visual_Demonstration_Tests/
+│   └── 03_Scale_Throughput_Benchmarks/
 └── docs/                       # Architectural diagrams & schematics
 ```
 

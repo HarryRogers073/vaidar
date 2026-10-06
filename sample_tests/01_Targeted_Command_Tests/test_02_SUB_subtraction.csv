@@ -1,0 +1,6 @@
+Operation,Operand A,Operand B,Expected Result,Flag N,Flag Z,Flag C,Flag V
+SUB,10,4,6,0,0,0,0
+SUB,5,5,0,0,1,0,0
+SUB,0,0,0,0,1,0,0
+SUB,3,5,65534,1,0,1,0
+SUB,32768,1,32767,0,0,0,1

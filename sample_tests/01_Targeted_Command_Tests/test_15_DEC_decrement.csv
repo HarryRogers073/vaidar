@@ -1,0 +1,4 @@
+Operation,Operand A,Operand B,Expected Result,Flag N,Flag Z,Flag C,Flag V
+DEC,10,0,9,0,0,0,0
+DEC,0,0,65535,1,0,1,0
+DEC,32768,0,32767,0,0,0,1

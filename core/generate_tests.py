@@ -131,4 +131,10 @@ def generate_test_file(filename, num_tests):
             res, n, z, c, v = calculate_flags(op, a, b)
             writer.writerow([op, a, b, res, n, z, c, v])
             
-    print("Done.")
+    print(f"Successfully generated {num_tests} test vectors in '{filename}'.")
+
+if __name__ == "__main__":
+    import sys
+    count = int(sys.argv[1]) if len(sys.argv) > 1 else 1000
+    out_file = sys.argv[2] if len(sys.argv) > 2 else f"benchmark_{count}_tests.csv"
+    generate_test_file(out_file, count)

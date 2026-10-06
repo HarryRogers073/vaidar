@@ -1,0 +1,8 @@
+Operation,Operand A,Operand B,Expected Result,Flag N,Flag Z,Flag C,Flag V
+ADD,5,3,8,0,0,0,0
+SUB,10,4,6,0,0,0,0
+MUL,4,3,12,0,0,0,0
+DIV,20,5,4,0,0,0,0
+MOD,14,3,2,0,0,0,0
+INC,99,0,100,0,0,0,0
+DEC,100,0,99,0,0,0,0

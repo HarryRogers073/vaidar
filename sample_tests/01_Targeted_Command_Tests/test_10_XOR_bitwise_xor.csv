@@ -1,0 +1,4 @@
+Operation,Operand A,Operand B,Expected Result,Flag N,Flag Z,Flag C,Flag V
+XOR,12,10,6,0,0,0,0
+XOR,65535,65535,0,0,1,0,0
+XOR,65535,0,65535,1,0,0,0
