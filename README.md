@@ -14,7 +14,7 @@
 - **Award:** Recognised with **The IET Prize 2026** by the Institution of Engineering and Technology (Final Dissertation Grade: First Class 91% / A+).
 - **Custom Hardware & Firmware:** All custom Verilog RTL modules (16-bit ALU, control FSM, seven-segment display controller) and all Python software (GUI, execution engine, golden model, device profiles) were written by Harry Rogers.
 - **Adapted Hardware:** The UART receiver core (`hardware/src/sources_1/new/uart_receiver.v`) was adapted from Russell Merrick's open-source Nandland UART module with custom oversampling and framing for this platform.
-- **Third-Party Libraries:** Standard open-source libraries used include `pyserial` (serial communication), `customtkinter` (desktop GUI), `matplotlib` (waveform plotting), and official API SDKs from Google, Anthropic, and OpenAI.
+- **Third-Party Libraries:** Standard open-source libraries used include `pyserial` (serial communication), `customtkinter` (desktop GUI), and official API SDKs from Google, Anthropic, and OpenAI.
 
 ---
 

@@ -3,7 +3,7 @@
 File:         live_graph.py
 Written by:   Harry Rogers
 Date:         May 2026
-Description:  Real-time throughput and signal waveform plotting widgets using Matplotlib
+Description:  Real-time throughput and signal waveform plotting widgets using Tkinter Canvas
 ================================================================================
 """
 
